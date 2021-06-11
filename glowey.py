@@ -10,25 +10,28 @@ def readJSON():
     return config
 
 
-def changeValues(input):
-    # readJSON
-    # increment value 
-    # if values greater than 1 or less than 0
-    #   pass
-    # config['brightness'] = value
-    # config []
+def writeJSON(updated_values):
+    print(updated_values)
+    with open('config.json', 'w') as configFile:
+        json.dump(updated_values, configFile)
 
-    old_values = readJSON()
+
+def changeValues(input):
+   old_values = readJSON()
 
     if input == "up":
         old_values['brightness'] += 0.1
     else:
         old_values['brightness'] -= 0.1
 
-    if old_value['brightness'] in [0, 1.1]:       # min is 0.1 to avoid making screens unreadble for people
+    # If values outside of min max thresholds don't do anything
+    if old_values['brightness'] in [0, 1.1]:       # min is 0.1 to avoid making screens unreadble for people
         return none 
 
-    if input = 1
+    # write to json 
+    writeJSON(old_values)       # old values have now been updated 
+
+    # run command 
 
 
 
@@ -36,9 +39,9 @@ def main():
 
     # Get input ("up", "down")
 
+    instr = input("'up' or 'down'")
 
-
-    # Change JSON values
+    changeValues(instr)
 
 
 
