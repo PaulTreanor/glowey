@@ -1,5 +1,5 @@
 {
-    "brightness": 1, 
-    "temperate": 1,
+    "brightness": 0.7, 
+    "temperature": 0.7,
     "output": "HDMI-1"
 }
