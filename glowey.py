@@ -17,7 +17,8 @@ def writeJSON(updated_values):
 
 
 def changeValues(input):
-   old_values = readJSON()
+    old_values = readJSON()
+    
 
     if input == "up":
         old_values['brightness'] += 0.1
