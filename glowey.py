@@ -1,20 +1,35 @@
 #!/usr/bin/python3
 import os
 import json_methods 
+import subprocess
+import sys
 
 MIN_VALUE, MAX_VALUE = 0.1, 1.1
 
 
 def getOutputID():
-    # xrandr -q
-    # whitespace then "connected"
-    # write output value to JSON 
-    pass # Outlining method 
+    queryOutput = subprocess.check_output("xrandr -q", shell=True).decode(sys.stdout.encoding).strip()
+
+    queryOutput = queryOutput.split(" ")        # list of words 
+
+    # Get string before "connected"
+    i = 0
+    while i < len(queryOutput):
+        if queryOutput[i] == "connected":
+            outputItem = queryOutput[i-1]
+        i += 1 
+
+    # seperate into words 
+    outputItem = outputItem.split("\n")
+    outputItem = outputItem[-1]        
+    return outputItem      
 
 
 
 def changeValues(input):
     json_values = json_methods.readJSON()
+
+    json_values['output'] = getOutputID()
     
     # update the values 
     if input == "up":
@@ -59,3 +74,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
