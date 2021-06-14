@@ -4,7 +4,7 @@ import json_methods
 import subprocess
 import sys
 
-MIN_VALUE, MAX_VALUE = 0.1, 1.1
+MIN_VALUE, MAX_VALUE = 0.1, 1.1 # min is 0.1 to avoid making screens unreadble for people
 
 
 def getOutputID():
@@ -34,11 +34,13 @@ def changeValues(input):
     # update the values 
     if input == "up":
         json_values['brightness'] += 0.1
+        json_values['temperature'] += 0.05
     else:
         json_values['brightness'] -= 0.1
+        json_values['temperature'] -= 0.05
 
     # If values outside of min max thresholds don't do anything
-    if not MIN_VALUE <= json_values['brightness'] < MAX_VALUE: # min is 0.1 to avoid making screens unreadble for people
+    if not MIN_VALUE <= json_values['brightness'] < MAX_VALUE: 
         return 
 
     # write to json 
@@ -56,13 +58,11 @@ def runCommand():                      # Read JSON and run shell command to adju
 
 
 
-def main():
+def main(args): 
 
+    instr = args
     # Get input ("up", "down")
-    instr = input("'up' or 'down'")
-
-    # Get outputID
-
+    #instr = input("'up' or 'down'")
 
     # set brightness/temperature
     changeValues(instr)
@@ -73,5 +73,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1])
     
