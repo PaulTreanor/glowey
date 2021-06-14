@@ -1,11 +1,11 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+
 import os
 import json_methods 
 import subprocess
 import sys
 
 MIN_VALUE, MAX_VALUE = 0.1, 1.1 # min is 0.1 to avoid making screens unreadble for people
-
 
 def getOutputID():
     queryOutput = subprocess.check_output("xrandr -q", shell=True).decode(sys.stdout.encoding).strip()
@@ -35,7 +35,7 @@ def changeValues(input):
     if input == "up":
         json_values['brightness'] += 0.1
         json_values['temperature'] += 0.05
-    else:
+    if input == "down":
         json_values['brightness'] -= 0.1
         json_values['temperature'] -= 0.05
 
@@ -57,21 +57,51 @@ def runCommand():                      # Read JSON and run shell command to adju
     os.system(command)
 
 
+def validateArgs(args):
+    known_arguments = ["up", "down", "help", "day", "night"]
+
+    if len(args) != 2:
+        print("Error, wrong number of args")
+        sys.exit()
+
+    if args[1] not in known_arguments:
+        print("Argument not known")
+        sys.exit()
+
+
+def help():
+    print("Usage: glowey.py <argument>")
+    print("Valid arguments are:\n   - up\n   - down\n   - help\n   - day\n   - night\n")
+
 
 def main(args): 
 
-    instr = args
-    # Get input ("up", "down")
-    #instr = input("'up' or 'down'")
+    # validate args
+    validateArgs(args)
 
-    # set brightness/temperature
-    changeValues(instr)
+    instr = args[1]
 
-    # Run command 
-    runCommand()
+    if instr == "help":
+        help()
+
+    elif instr in ["day", "night"]:
+        print("Sorry this method hasn't been implemented yet.")
+
+    else:
+        # set brightness/temperature
+        changeValues(instr)
+
+        # Run command 
+        runCommand()
 
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv)
     
+
+"""TODO:
+        - Add -day and -night presets
+        - Help screen 
+        - Similar commands with errors  
+""" 
