@@ -26,6 +26,7 @@ def getOutputID():
 
 
 
+
 def changeValues(input):
     json_values = json_methods.readJSON()
 
@@ -38,6 +39,12 @@ def changeValues(input):
     if input == "down":
         json_values['brightness'] -= 0.1
         json_values['temperature'] -= 0.05
+    if input == "day":
+        json_values['brightness'] = 1
+        json_values['temperature'] = 1
+    if input == "night":
+        json_values['brightness'] = 0.6
+        json_values['temperature'] = 0.8
 
     # If values outside of min max thresholds don't do anything
     if not MIN_VALUE <= json_values['brightness'] < MAX_VALUE: 
@@ -84,9 +91,6 @@ def main(args):
     if instr == "help":
         help()
 
-    elif instr in ["day", "night"]:
-        print("Sorry this method hasn't been implemented yet.")
-
     else:
         # set brightness/temperature
         changeValues(instr)
@@ -102,6 +106,7 @@ if __name__ == "__main__":
 
 """TODO:
         - Add -day and -night presets
+            - refactor as switch statement 
         - Help screen 
         - Similar commands with errors  
 """ 
