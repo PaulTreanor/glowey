@@ -52,6 +52,7 @@ def changeValues(input):
         json_values['temperature'] = 0.8
 
     ######## SWITCH CASES ONLY WORK WITH PYTHON 3.10 ###########
+
     # match input:
     #     case "up":
     #         json_values['brightness'] += 0.1
@@ -88,7 +89,8 @@ def validateArgs(args):
     known_arguments = ["up", "down", "help", "day", "night"]
 
     if len(args) != 2:
-        print("Error, wrong number of args")
+        args_number = len(args)-1 # because ./glowey.py is counted as an arg
+        print("Error, glowey accepts 1 argument, you supplied {} arguments".format(args_number))
         sys.exit()
 
     if args[1] not in known_arguments:
@@ -123,10 +125,3 @@ def main(args):
 if __name__ == "__main__":
     main(sys.argv)
     
-
-"""TODO:
-        - Add -day and -night presets
-            - refactor as switch statement 
-        - Help screen 
-        - Similar commands with errors  
-""" 
