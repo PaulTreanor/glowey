@@ -32,7 +32,12 @@ def changeValues(input):
 
     json_values['output'] = getOutputID()
     
+    
+
     # update the values 
+    
+    ######## FOR OLDER PYTHON VERSIONS #########
+
     if input == "up":
         json_values['brightness'] += 0.1
         json_values['temperature'] += 0.05
@@ -45,6 +50,21 @@ def changeValues(input):
     if input == "night":
         json_values['brightness'] = 0.6
         json_values['temperature'] = 0.8
+
+    ######## SWITCH CASES ONLY WORK WITH PYTHON 3.10 ###########
+    # match input:
+    #     case "up":
+    #         json_values['brightness'] += 0.1
+    #         json_values['temperature'] += 0.05
+    #     case "down":
+    #         json_values['brightness'] -= 0.1
+    #         json_values['temperature'] -= 0.05
+    #     case "day":
+    #         json_values['brightness'] = 1
+    #         json_values['temperature'] = 1
+    #     case "night":
+    #         json_values['brightness'] = 0.6
+    #         json_values['temperature'] = 0.8
 
     # If values outside of min max thresholds don't do anything
     if not MIN_VALUE <= json_values['brightness'] < MAX_VALUE: 
